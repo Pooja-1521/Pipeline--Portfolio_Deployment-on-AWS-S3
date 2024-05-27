@@ -2,8 +2,9 @@
 FROM nginx:alpine
 
 # Set the working directory in the container
-WORKDIR /usr/share/nginx/html
+WORKDIR /My_portfolio
 
+COPY package*.json ./
 # Copy the static website files to the Nginx web root directory
 COPY . .
 

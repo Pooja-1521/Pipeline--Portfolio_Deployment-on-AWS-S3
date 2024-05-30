@@ -16,16 +16,27 @@ jobs:
       - name: Upload HTML files to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --delete
+          args: --acl public-read --delete --exclude '*' --include '*.html'
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: .
-      - name: Upload images to S3
+
+      - name: Upload CSS files to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --delete --exclude '*.html' --include 'assets/images/*'
+          args: --acl public-read --delete --exclude '*' --include 'css/*'
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SOURCE_DIR: .
+
+      - name: Upload image files to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --delete --exclude '*' --include 'images/*'
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
